@@ -14,14 +14,12 @@ const options = {
             },
         },
         servers: [
+            ...(process.env.NODE_ENV === "production" && process.env.RENDER_EXTERNAL_URL
+                ? [{ url: process.env.RENDER_EXTERNAL_URL, description: "Production server" }]
+                : []),
             {
-                url: "http://localhost:{port}",
+                url: `http://localhost:${process.env.PORT || 8080}`,
                 description: "Local development server",
-                variables: {
-                    port: {
-                        default: "8080",
-                    },
-                },
             },
         ],
         tags: [
