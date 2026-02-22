@@ -28,9 +28,17 @@ const adminRouter = require("./routes/adminRoutes");
 app.use(helmet());
 
 //  Enable CORS (Cross-Origin Resource Sharing)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+];
+// Add production frontend URL from env (set CLIENT_URL on Render)
+if (process.env.CLIENT_URL) {
+  allowedOrigins.push(process.env.CLIENT_URL);
+}
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
