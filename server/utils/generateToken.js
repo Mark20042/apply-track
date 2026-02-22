@@ -19,10 +19,11 @@ const generateTokens = (user, res) => {
   const cookieMaxAge = days * 24 * 60 * 60 * 1000;
 
   // Set Access Token Cookie
+  const isProduction = process.env.NODE_ENV === "production";
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "strict",
     maxAge: cookieMaxAge,
   });
 };
