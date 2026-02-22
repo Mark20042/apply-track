@@ -12,6 +12,7 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 const connectDB = require("./db/connect");
+const { swaggerUi, swaggerSpec } = require("./swagger");
 
 const notFoundMiddleware = require("./middlewares/not-found");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
@@ -39,6 +40,22 @@ const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 200, //  100 requests per windowMs
   message: "Too many requests from this IP, please try again after 15 minutes",
+});
+
+// Swagger API Docs (mounted before rate limiter so docs are always accessible)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customSiteTitle: "ApplyTrack API Docs",
+  customCss: '.swagger-ui .topbar { display: none }',
+  swaggerOptions: {
+    persistAuthorization: true,
+    docExpansion: 'list',
+    filter: true,
+    tagsSorter: 'alpha',
+  },
+}));
+app.get("/api-docs.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
 });
 
 // rate limiter only applies to /api routes
