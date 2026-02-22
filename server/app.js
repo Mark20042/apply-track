@@ -103,6 +103,15 @@ app.use("/api/job", jobRouter);
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
 
+
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>ApplyTrack API</h1>
+    <p>API is running successfully.</p>
+    <p>Documentation is available at <a href="/api-docs">/api-docs</a></p>
+  `);
+});
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
