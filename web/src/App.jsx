@@ -14,6 +14,7 @@ import Register from "./pages/auth/Register";
 import Dashboard from "./pages/user/Dashboard";
 import AllJobs from "./pages/user/AllJobs";
 import Profile from "./pages/user/Profile";
+import Tasks from "./pages/user/Tasks";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProfile from "./pages/admin/AdminProfile";
 import NotFound from "./pages/NotFound";
@@ -55,6 +56,7 @@ export default function App() {
             >
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/jobs" element={<AllJobs />} />
+              <Route path="/dashboard/tasks" element={<Tasks />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
 

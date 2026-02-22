@@ -24,7 +24,7 @@ const STATUS_CONFIG = {
 /** High-fidelity replica of the real Dashboard for the landing page */
 export default function DashboardPreview() {
   return (
-    <div className="relative mx-auto w-full max-w-5xl h-[500px] sm:h-[600px] mt-8 mb-16 perspective-[2500px] flex items-center justify-center">
+    <div className="relative mx-auto w-full max-w-7xl h-[500px] sm:h-[600px] mt-8 mb-16 perspective-[2500px] flex items-center justify-center">
 
       {/* The single floating dashboard card in 3D perspective */}
       <div className="absolute z-20 w-[95%] sm:w-[100%] transform -rotate-[2deg] translate-y-4 transition-all duration-700 hover:rotate-0 hover:scale-[1.02] hover:-translate-y-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] shadow-primary/10 rounded-2xl group">
