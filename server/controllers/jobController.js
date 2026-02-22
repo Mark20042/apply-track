@@ -66,8 +66,11 @@ const updateJob = async (req, res) => {
   const oldJob = await Job.findOne({ _id: jobId, createdBy: userId });
   if (!oldJob) throw new NotFoundError(`No job with id : ${jobId}`);
 
-  // Track when an interview first happens
-  if (status === "interview" && oldJob.status !== "interview" && !oldJob.interviewedAt) {
+  if (
+    status === "interview" &&
+    oldJob.status !== "interview" &&
+    !oldJob.interviewedAt
+  ) {
     req.body.interviewedAt = new Date();
   }
 
@@ -77,7 +80,6 @@ const updateJob = async (req, res) => {
     { returnDocument: "after", runValidators: true },
   );
 
-  // Sync User Profile based on their current accepted jobs
   const acceptedJobsCount = await Job.countDocuments({
     createdBy: userId,
     status: "accepted",
@@ -98,7 +100,6 @@ const updateJob = async (req, res) => {
       });
     }
   } else {
-    // If no jobs are currently accepted (e.g., they reverted an accepted job to pending)
     await User.findByIdAndUpdate(userId, {
       $unset: { hiredDetails: 1 },
       role: "User", // Revert to default
@@ -148,8 +149,7 @@ const deleteJob = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Success! Job removed" });
 };
 
-// SHOW STATS (For your Dashboard)
-// SHOW STATS (For your Dashboard)
+// SHOW STATS
 const showStats = async (req, res) => {
   let stats = await Job.aggregate([
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },

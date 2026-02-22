@@ -94,7 +94,7 @@ export default function Register() {
             </div>
 
             {/* Right side: Form Container */}
-            <div className="flex w-full lg:w-1/2 flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-8 relative overflow-y-auto max-h-screen">
+            <div className="flex w-full lg:w-1/2 flex-col items-center lg:justify-center px-4 py-6 sm:px-6 lg:px-8 relative overflow-y-auto max-h-screen">
 
                 <Link
                     to="/"
@@ -105,13 +105,13 @@ export default function Register() {
                 </Link>
                 <Link
                     to="/"
-                    className="lg:hidden mb-8 self-start inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-all duration-200"
+                    className="lg:hidden mb-4 w-full max-w-sm inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-200 shrink-0"
                 >
                     <ArrowLeft className="h-4 w-4" />
                     Back to home
                 </Link>
 
-                <div className="w-full max-w-sm space-y-6 my-auto pt-8 pb-12">
+                <div className="w-full max-w-sm space-y-6 lg:my-auto pt-4 lg:pt-8 pb-12">
                     <div className="text-center sm:text-left">
                         <div className="lg:hidden mb-6 flex justify-center sm:justify-start">
                             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md">

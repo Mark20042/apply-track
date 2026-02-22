@@ -24,11 +24,11 @@ const STATUS_CONFIG = {
 /** High-fidelity replica of the real Dashboard for the landing page */
 export default function DashboardPreview() {
   return (
-    <div className="relative mx-auto w-full max-w-7xl h-[500px] sm:h-[600px] mt-8 mb-16 perspective-[2500px] flex items-center justify-center">
+    <div className="relative mx-auto w-full max-w-7xl h-[360px] sm:h-[500px] md:h-[600px] mt-4 sm:mt-8 mb-8 sm:mb-16 perspective-[2500px] flex items-center justify-center">
 
       {/* The single floating dashboard card in 3D perspective */}
-      <div className="absolute z-20 w-[95%] sm:w-[100%] transform -rotate-[2deg] translate-y-4 transition-all duration-700 hover:rotate-0 hover:scale-[1.02] hover:-translate-y-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] shadow-primary/10 rounded-2xl group">
-        <div className="overflow-hidden rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl ring-1 ring-border/50 flex flex-col h-[500px] sm:h-[600px] pointer-events-none">
+      <div className="absolute z-20 w-[98%] sm:w-[95%] transform -rotate-[2deg] translate-y-4 transition-all duration-700 hover:rotate-0 hover:scale-[1.02] hover:-translate-y-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] shadow-primary/10 rounded-xl sm:rounded-2xl group">
+        <div className="overflow-hidden rounded-xl sm:rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl ring-1 ring-border/50 flex flex-col h-[360px] sm:h-[500px] md:h-[600px] pointer-events-none">
 
           {/* Fake Browser Top Bar */}
           <div className="flex items-center gap-2 border-b border-border bg-muted/20 px-4 py-3 shrink-0">
@@ -43,7 +43,7 @@ export default function DashboardPreview() {
           </div>
 
           {/* Dashboard Content matching user's real Dashboard */}
-          <div className="flex-1 overflow-hidden p-6 sm:p-8 bg-background flex flex-col gap-6">
+          <div className="flex-1 overflow-hidden p-3 sm:p-6 md:p-8 bg-background flex flex-col gap-3 sm:gap-6">
 
             {/* Header Section */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shrink-0">

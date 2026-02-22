@@ -51,10 +51,10 @@ export default function AdminProfile() {
     };
 
     return (
-        <div className="mx-auto max-w-2xl space-y-6">
+        <div className="mx-auto max-w-2xl space-y-4 sm:space-y-6">
             <div>
-                <h1 className="text-3xl font-bold">Admin Profile</h1>
-                <p className="mt-1 text-muted-foreground">Manage your admin account</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Admin Profile</h1>
+                <p className="mt-1 text-xs sm:text-sm text-muted-foreground">Manage your admin account</p>
             </div>
 
             <Card className="glass-card border-0">

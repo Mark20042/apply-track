@@ -54,13 +54,13 @@ export default function Dashboard() {
 
     if (totalJobs === 0) {
         return (
-            <div className="max-w-7xl mx-auto pb-10 space-y-8 px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-8">
+            <div className="max-w-7xl mx-auto pb-10 space-y-6 sm:space-y-8 px-2 sm:px-4 md:px-6 lg:px-8">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mt-4 sm:mt-8">
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                             Dashboard
                         </h1>
-                        <p className="mt-2 text-sm text-muted-foreground flex items-center gap-2">
+                        <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
                             <Target className="h-4 w-4 text-primary" />
                             Track your job search progress
                         </p>
@@ -80,12 +80,12 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto pb-10 space-y-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto pb-10 space-y-6 sm:space-y-8 px-2 sm:px-4 md:px-6 lg:px-8">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mt-4 sm:mt-8">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-foreground">Overview</h1>
-                    <p className="mt-2 text-sm text-muted-foreground flex items-center gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Overview</h1>
+                    <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
                         <Target className="h-4 w-4 text-primary" />
                         Here's what's happening with your job search.
                     </p>

@@ -161,11 +161,11 @@ export default function AllJobs() {
     };
 
     return (
-        <div className="space-y-8 max-w-[1400px] mx-auto">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-6 sm:space-y-8 max-w-[1400px] mx-auto">
+            <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">All Jobs</h1>
-                    <p className="mt-2 text-base text-muted-foreground">
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">All Jobs</h1>
+                    <p className="mt-1 sm:mt-2 text-sm sm:text-base text-muted-foreground">
                         {totalJobs} application{totalJobs !== 1 ? "s" : ""} tracked
                     </p>
                 </div>
@@ -186,9 +186,9 @@ export default function AllJobs() {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-col gap-4 rounded-xl border border-border/60 bg-card/50 backdrop-blur-sm p-5 shadow-sm sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-3 rounded-xl border border-border/60 bg-card/50 backdrop-blur-sm p-3 sm:p-5 shadow-sm sm:flex-row sm:items-center sm:gap-4">
                 <div className="relative flex-1">
-                    <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                    <Search className="absolute left-3 sm:left-4 top-1/2 h-4 w-4 sm:h-5 sm:w-5 -translate-y-1/2 text-muted-foreground" />
                     <Input
                         placeholder="Search company or position..."
                         value={search}
@@ -196,43 +196,45 @@ export default function AllJobs() {
                             setSearch(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className="pl-12 h-12 text-base bg-background/50"
+                        className="pl-10 sm:pl-12 h-10 sm:h-12 text-sm sm:text-base bg-background/50"
                     />
                 </div>
-                <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setCurrentPage(1); }}>
-                    <SelectTrigger className="w-[140px]">
-                        <SelectValue placeholder="Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Status</SelectItem>
-                        {STATUS_OPTIONS.map((s) => (
-                            <SelectItem key={s} value={s}>
-                                {s.charAt(0).toUpperCase() + s.slice(1)}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-                <Select value={workSettingFilter} onValueChange={(v) => { setWorkSettingFilter(v); setCurrentPage(1); }}>
-                    <SelectTrigger className="w-[140px]">
-                        <SelectValue placeholder="Work" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All Work</SelectItem>
-                        {WORK_SETTING_OPTIONS.map((w) => (
-                            <SelectItem key={w.value} value={w.value}>{w.label}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-                <Select value={sort} onValueChange={(v) => { setSort(v); setCurrentPage(1); }}>
-                    <SelectTrigger className="w-[160px]">
-                        <SelectValue placeholder="Sort" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {SORT_OPTIONS.map((s) => (
-                            <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+                <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-4">
+                    <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setCurrentPage(1); }}>
+                        <SelectTrigger className="w-full sm:w-[140px] text-xs sm:text-sm">
+                            <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Status</SelectItem>
+                            {STATUS_OPTIONS.map((s) => (
+                                <SelectItem key={s} value={s}>
+                                    {s.charAt(0).toUpperCase() + s.slice(1)}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <Select value={workSettingFilter} onValueChange={(v) => { setWorkSettingFilter(v); setCurrentPage(1); }}>
+                        <SelectTrigger className="w-full sm:w-[140px] text-xs sm:text-sm">
+                            <SelectValue placeholder="Work" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Work</SelectItem>
+                            {WORK_SETTING_OPTIONS.map((w) => (
+                                <SelectItem key={w.value} value={w.value}>{w.label}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <Select value={sort} onValueChange={(v) => { setSort(v); setCurrentPage(1); }}>
+                        <SelectTrigger className="w-full sm:w-[160px] text-xs sm:text-sm">
+                            <SelectValue placeholder="Sort" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {SORT_OPTIONS.map((s) => (
+                                <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
 
             {/* Jobs grid */}

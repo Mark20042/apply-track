@@ -75,7 +75,7 @@ export default function TaskCard({
             <div className={`absolute left-0 top-0 bottom-0 w-1 ${statusInfo.bg}`} />
 
             {/* Edit / Delete Dropdown Menu */}
-            <div className="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition-opacity flex items-center z-10">
+            <div className="absolute right-3 top-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center z-10">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-background/50 hover:bg-muted backdrop-blur-sm shadow-sm border border-border/50">

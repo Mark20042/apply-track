@@ -80,18 +80,18 @@ export default function Profile() {
     const showTimeline = activeJobs.length > 0 && !loadingJob;
 
     return (
-        <div className="max-w-6xl mx-auto pb-10 space-y-8 px-4 sm:px-6 lg:px-8 mt-8 z-10 relative">
+        <div className="max-w-6xl mx-auto pb-10 space-y-6 sm:space-y-8 px-2 sm:px-4 md:px-6 lg:px-8 mt-4 sm:mt-8 z-10 relative">
             {/* Page Header */}
             <div>
-                <h1 className="text-3xl font-bold tracking-tight text-foreground">Profile Settings</h1>
-                <p className="mt-2 text-sm text-muted-foreground flex items-center gap-2">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Profile Settings</h1>
+                <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
                     <Settings className="h-4 w-4 text-primary" />
                     Manage your account details and preferences.
                 </p>
             </div>
 
-            <div className={`grid gap-8 ${showTimeline ? 'lg:grid-cols-10' : 'max-w-3xl'}`}>
-                <div className={showTimeline ? 'lg:col-span-6' : 'w-full'}>
+            <div className={`grid gap-6 sm:gap-8 ${showTimeline ? 'lg:grid-cols-10' : 'max-w-3xl'}`}>
+                <div className={`space-y-6 ${showTimeline ? 'lg:col-span-6' : 'w-full'}`}>
                     <ProfileCard
                         user={user}
                         acceptedJobsList={acceptedJobsList}

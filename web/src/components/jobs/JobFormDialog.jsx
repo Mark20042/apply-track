@@ -49,25 +49,25 @@ export default function JobFormDialog({
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-                <Button onClick={onOpenNew} className="h-10">
+                <Button onClick={onOpenNew} className="h-10 w-full sm:w-auto">
                     <Plus className="mr-2 h-4 w-4" />
                     Add Job
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-3xl p-0 overflow-hidden bg-background shadow-2xl border-border/60">
+            <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-3xl p-0 overflow-hidden bg-background shadow-2xl border-border/60">
                 {/* Premium Header */}
-                <div className="bg-card border-b border-border/50 px-6 py-4 flex flex-col gap-1 relative overflow-hidden">
+                <div className="bg-card border-b border-border/50 px-4 sm:px-6 py-3 sm:py-4 flex flex-col gap-0.5 sm:gap-1 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-blue-500 to-purple-500" />
-                    <DialogTitle className="text-xl font-bold flex items-center gap-2">
+                    <DialogTitle className="text-base sm:text-xl font-bold flex items-center gap-2">
                         {editingJob ? "View & Edit Application" : "New Application"}
                     </DialogTitle>
-                    <p className="text-xs text-muted-foreground">Keep your application details, compensation, and tasks heavily organized here.</p>
+                    <p className="text-[11px] sm:text-xs text-muted-foreground">Keep your application details, compensation, and tasks heavily organized here.</p>
                 </div>
 
-                <form onSubmit={onSubmit} className="px-6 py-6 space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
+                <form onSubmit={onSubmit} className="px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                         {/* Core Details Card */}
-                        <div className="space-y-4 bg-card/80 p-6 rounded-2xl border border-border/60 shadow-md relative group">
+                        <div className="space-y-3 sm:space-y-4 bg-card/80 p-3.5 sm:p-6 rounded-xl sm:rounded-2xl border border-border/60 shadow-md relative group">
                             <div className="absolute top-3 right-3 opacity-10">
                                 <Briefcase className="h-16 w-16" />
                             </div>
@@ -117,7 +117,7 @@ export default function JobFormDialog({
                         </div>
 
                         {/* Environment & Comp Card */}
-                        <div className="space-y-4 bg-card/80 p-6 rounded-2xl border border-border/60 shadow-md relative group">
+                        <div className="space-y-3 sm:space-y-4 bg-card/80 p-3.5 sm:p-6 rounded-xl sm:rounded-2xl border border-border/60 shadow-md relative group">
                             <div className="absolute top-3 right-3 opacity-10">
                                 <DollarSign className="h-16 w-16" />
                             </div>
@@ -218,7 +218,7 @@ export default function JobFormDialog({
                     </div>
 
                     {/* Job Tasks Section */}
-                    <div className="bg-card/80 p-6 rounded-2xl border border-border/60 shadow-md">
+                    <div className="bg-card/80 p-3.5 sm:p-6 rounded-xl sm:rounded-2xl border border-border/60 shadow-md">
                         <div className="flex items-center justify-between border-b border-border/40 pb-3 mb-4">
                             <h3 className="text-sm font-bold tracking-tight flex items-center gap-2">
                                 <CheckSquare className="h-4 w-4 text-purple-500" />

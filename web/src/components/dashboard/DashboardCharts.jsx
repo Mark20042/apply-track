@@ -26,27 +26,27 @@ const TOOLTIP_ITEM_STYLE = { color: "var(--foreground)", fontWeight: "600" };
 
 export default function DashboardCharts({ barData, pieData, activityData }) {
     return (
-        <div className="grid gap-6 lg:grid-cols-7">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-7">
             {/* Main Bar Chart */}
             <Card className="lg:col-span-4 shadow-sm border-border">
-                <CardHeader className="flex flex-row items-center gap-2 border-b border-border/40 py-4 px-6">
+                <CardHeader className="flex flex-row items-center gap-2 border-b border-border/40 py-3 sm:py-4 px-4 sm:px-6">
                     <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                    <CardTitle className="text-base font-semibold">Distribution by Status</CardTitle>
+                    <CardTitle className="text-sm sm:text-base font-semibold">Distribution by Status</CardTitle>
                 </CardHeader>
-                <CardContent className="p-6">
-                    <div className="h-[300px] w-full">
+                <CardContent className="p-3 sm:p-6">
+                    <div className="h-[220px] sm:h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={barData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
                                 <XAxis
                                     dataKey="name"
-                                    tick={{ fill: "currentColor", opacity: 0.7, fontSize: 12 }}
+                                    tick={{ fill: "currentColor", opacity: 0.7, fontSize: 11 }}
                                     tickLine={false}
                                     axisLine={false}
                                     dy={10}
                                 />
                                 <YAxis
-                                    tick={{ fill: "currentColor", opacity: 0.7, fontSize: 12 }}
+                                    tick={{ fill: "currentColor", opacity: 0.7, fontSize: 11 }}
                                     tickLine={false}
                                     axisLine={false}
                                     allowDecimals={false}
@@ -68,17 +68,17 @@ export default function DashboardCharts({ barData, pieData, activityData }) {
             </Card>
 
             {/* Secondary Charts Column */}
-            <div className="lg:col-span-3 flex flex-col gap-6">
+            <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6">
                 {/* Area Chart for Activity */}
-                <Card className="shadow-sm border-border flex-1 flex flex-col">
-                    <CardHeader className="flex flex-row items-center justify-between border-b border-border/40 py-4 px-6">
+                <Card className="shadow-sm border-border flex flex-col">
+                    <CardHeader className="flex flex-row items-center justify-between border-b border-border/40 py-3 sm:py-4 px-4 sm:px-6">
                         <div className="flex items-center gap-2">
                             <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                            <CardTitle className="text-base font-semibold">Activity (7 Days)</CardTitle>
+                            <CardTitle className="text-sm sm:text-base font-semibold">Activity (7d)</CardTitle>
                         </div>
                     </CardHeader>
-                    <CardContent className="p-4 flex-1">
-                        <div className="h-[120px] w-full">
+                    <CardContent className="p-3 sm:p-4 flex-1">
+                        <div className="h-[100px] sm:h-[120px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={activityData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
                                     <defs>
@@ -96,8 +96,8 @@ export default function DashboardCharts({ barData, pieData, activityData }) {
                 </Card>
 
                 {/* Pie Chart */}
-                <Card className="shadow-sm border-border flex-1 flex flex-col">
-                    <CardContent className="p-4 flex-1 flex flex-col items-center justify-center min-h-[180px]">
+                <Card className="shadow-sm border-border flex flex-col">
+                    <CardContent className="p-3 sm:p-4 flex-1 flex flex-col items-center justify-center min-h-[160px] sm:min-h-[180px]">
                         <div className="h-full w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -105,8 +105,8 @@ export default function DashboardCharts({ barData, pieData, activityData }) {
                                         data={pieData}
                                         cx="50%"
                                         cy="50%"
-                                        innerRadius={50}
-                                        outerRadius={70}
+                                        innerRadius={35}
+                                        outerRadius={55}
                                         paddingAngle={3}
                                         dataKey="count"
                                         nameKey="name"

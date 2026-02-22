@@ -3,45 +3,45 @@ import { Briefcase, Activity, Gift } from "lucide-react";
 
 export default function StatsCards({ totalJobs, stats }) {
     return (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="shadow-sm border-border bg-card">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center justify-between space-y-0 pb-2">
-                        <p className="text-sm font-medium text-muted-foreground">Total Applications</p>
+                        <p className="text-xs sm:text-sm font-medium text-muted-foreground">Total Applications</p>
                         <Briefcase className="h-4 w-4 text-muted-foreground" />
                     </div>
                     <div className="flex items-baseline gap-2">
-                        <div className="text-4xl font-bold">{totalJobs}</div>
-                        <span className="text-xs font-medium text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">+12% from last week</span>
+                        <div className="text-3xl sm:text-4xl font-bold">{totalJobs}</div>
+                        <span className="text-[10px] sm:text-xs font-medium text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">+12% from last week</span>
                     </div>
                 </CardContent>
             </Card>
 
             <Card className="shadow-sm border-border bg-card">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center justify-between space-y-0 pb-2">
-                        <p className="text-sm font-medium text-muted-foreground">Success Rate (Interviews)</p>
+                        <p className="text-xs sm:text-sm font-medium text-muted-foreground">Success Rate (Interviews)</p>
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </div>
-                    <div className="text-4xl font-bold">
+                    <div className="text-3xl sm:text-4xl font-bold">
                         {totalJobs > 0 ? Math.round(((stats?.interview || 0) / totalJobs) * 100) : 0}%
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                         Applications converting to interviews
                     </p>
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm border-border bg-card">
-                <CardContent className="p-6">
+            <Card className="shadow-sm border-border bg-card sm:col-span-2 lg:col-span-1">
+                <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center justify-between space-y-0 pb-2">
-                        <p className="text-sm font-medium text-muted-foreground">Total Offers</p>
+                        <p className="text-xs sm:text-sm font-medium text-muted-foreground">Total Offers</p>
                         <Gift className="h-4 w-4 text-purple-500" />
                     </div>
-                    <div className="text-4xl font-bold text-foreground">
+                    <div className="text-3xl sm:text-4xl font-bold text-foreground">
                         {stats?.offer || 0}
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                         Current highly successful outcomes
                     </p>
                 </CardContent>

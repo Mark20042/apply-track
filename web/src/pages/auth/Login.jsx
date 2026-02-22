@@ -62,13 +62,20 @@ export default function Login() {
             </div>
 
             {/* Right side: Form Container */}
-            <div className="flex w-full lg:w-1/2 flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8 relative">
+            <div className="flex w-full lg:w-1/2 flex-col items-center lg:justify-center px-4 py-6 sm:px-6 lg:px-8 relative">
                 <Link
                     to="/"
-                    className="absolute top-8 left-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-x-1"
+                    className="absolute top-8 left-8 hidden lg:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-x-1"
                 >
                     <ArrowLeft className="h-4 w-4" />
                     Back
+                </Link>
+                <Link
+                    to="/"
+                    className="lg:hidden mb-6 self-start inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-all duration-200"
+                >
+                    <ArrowLeft className="h-4 w-4" />
+                    Back to home
                 </Link>
 
                 <div className="w-full max-w-sm space-y-8">

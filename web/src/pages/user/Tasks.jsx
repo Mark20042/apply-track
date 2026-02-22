@@ -224,15 +224,15 @@ export default function Tasks() {
     const groupOrder = ['Overdue', 'Today', 'Tomorrow', 'This Week', 'Later', 'Completed'];
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6 lg:space-y-10 animate-in fade-in zoom-in-95 duration-500 pb-12">
+        <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 lg:space-y-10 animate-in fade-in zoom-in-95 duration-500 pb-12">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-muted/30 p-6 rounded-2xl border border-border/50">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 bg-muted/30 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-border/50">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-foreground flex items-center gap-3">
-                        <CheckSquare className="h-8 w-8 text-primary" />
+                    <h1 className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2 sm:gap-3">
+                        <CheckSquare className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                         Tasks Accross Your Applications
                     </h1>
-                    <p className="mt-2 text-sm text-muted-foreground">
+                    <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground">
                         Manage all upcoming interviews, assessments, and follow-ups across your applications.
                     </p>
                 </div>

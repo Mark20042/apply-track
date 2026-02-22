@@ -99,14 +99,14 @@ export default function AdminDashboard() {
         : [];
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
             <div>
-                <h1 className="text-3xl font-bold">Admin Overview</h1>
-                <p className="mt-1 text-muted-foreground">Platform-wide statistics</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Admin Overview</h1>
+                <p className="mt-1 text-xs sm:text-sm text-muted-foreground">Platform-wide statistics</p>
             </div>
 
             {/* Stats */}
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
                 {statCards.map((s) => (
                     <Card key={s.label} className="glass-card border-0">
                         <CardContent className="flex items-center gap-4 p-5">
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
 
             {/* Job status breakdown */}
             {stats?.jobStats && (
-                <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+                <div className="grid gap-2 sm:gap-3 grid-cols-3 lg:grid-cols-6">
                     {[
                         { k: "pending", icon: Clock, color: "#f59e0b" },
                         { k: "interview", icon: MessageSquare, color: "#3b82f6" },
@@ -157,17 +157,17 @@ export default function AdminDashboard() {
 
             {/* Users table */}
             <Card className="glass-card border-0">
-                <CardHeader className="flex-row items-center justify-between gap-4">
-                    <CardTitle className="text-lg">
+                <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                    <CardTitle className="text-base sm:text-lg">
                         Users ({totalUsers})
                     </CardTitle>
-                    <div className="relative w-64">
+                    <div className="relative w-full sm:w-64">
                         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             placeholder="Search users..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="pl-10"
+                            className="pl-10 text-sm"
                         />
                     </div>
                 </CardHeader>
@@ -181,26 +181,27 @@ export default function AdminDashboard() {
                             {users.map((u) => (
                                 <div
                                     key={u._id}
-                                    className="flex items-center gap-4 rounded-xl p-3 hover:bg-accent/50 transition-colors"
+                                    className="flex items-center gap-3 sm:gap-4 rounded-xl p-3 hover:bg-accent/50 transition-colors"
                                 >
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+                                    <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
                                         {u.username?.[0]?.toUpperCase()}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-medium truncate">
+                                        <p className="font-medium truncate text-sm sm:text-base">
                                             {u.username}
                                             {u.isAdmin && (
-                                                <Badge variant="outline" className="ml-2 text-xs">
+                                                <Badge variant="outline" className="ml-2 text-[10px] sm:text-xs">
                                                     Admin
                                                 </Badge>
                                             )}
                                         </p>
-                                        <p className="text-xs text-muted-foreground truncate">
+                                        <p className="text-[11px] sm:text-xs text-muted-foreground truncate">
                                             {u.email}
                                         </p>
                                     </div>
-                                    <Badge variant="secondary">{u.jobCount} jobs</Badge>
-                                    <div className="flex gap-1">
+                                    <Badge variant="secondary" className="hidden sm:inline-flex">{u.jobCount} jobs</Badge>
+                                    <span className="text-[11px] font-medium text-muted-foreground sm:hidden">{u.jobCount}</span>
+                                    <div className="flex gap-0.5 sm:gap-1 shrink-0">
                                         <Button
                                             variant="ghost"
                                             size="icon"
@@ -228,7 +229,7 @@ export default function AdminDashboard() {
 
             {/* User detail dialog */}
             <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
-                <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
+                <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg p-4 sm:p-6">
                     <DialogHeader>
                         <DialogTitle>User Details</DialogTitle>
                     </DialogHeader>
