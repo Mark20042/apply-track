@@ -23,29 +23,27 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please provide password"],
-      match: [
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-        "Password must be at least 6 characters, including at least one uppercase letter, one lowercase letter, and one number",
-      ],
+      minlength: 6,
     },
     role: {
       type: String,
       default: "Job Hunter",
       trim: true,
     },
-
     gender: {
       type: String,
       enum: ["Male", "Female", "Prefer not to say", "Other", ""],
       default: "",
     },
-
     education: {
       type: String,
       trim: true,
       maxlength: 100,
     },
-
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
     hiredDetails: {
       company: { type: String, trim: true, default: "" },
       position: { type: String, trim: true, default: "" },

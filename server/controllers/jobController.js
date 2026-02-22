@@ -26,8 +26,9 @@ const getAllJobs = async (req, res) => {
   // --- Sorting ---
   if (sort === "latest") result = result.sort("-appliedAt");
   if (sort === "oldest") result = result.sort("appliedAt");
-  if (sort === "salary-high") result = result.sort("-salary");
-  if (sort === "salary-low") result = result.sort("salary");
+  if (sort === "salary-high") result = result.sort("-maxSalary");
+  if (sort === "salary-low") result = result.sort("minSalary");
+  if (sort === "latest-updated") result = result.sort("-updatedAt");
 
   // --- Pagination ---
   const page = Number(req.query.page) || 1;
@@ -62,23 +63,45 @@ const updateJob = async (req, res) => {
   const { status } = req.body;
   const userId = req.user.userId;
 
+  const oldJob = await Job.findOne({ _id: jobId, createdBy: userId });
+  if (!oldJob) throw new NotFoundError(`No job with id : ${jobId}`);
+
+  // Track when an interview first happens
+  if (status === "interview" && oldJob.status !== "interview" && !oldJob.interviewedAt) {
+    req.body.interviewedAt = new Date();
+  }
+
   const job = await Job.findOneAndUpdate(
     { _id: jobId, createdBy: userId },
     req.body,
-    { new: true, runValidators: true },
+    { returnDocument: "after", runValidators: true },
   );
 
-  if (!job) throw new NotFoundError(`No job with id : ${jobId}`);
-
-  // Automatically update User Profile if hired
-  if (status === "accepted") {
+  // Sync User Profile based on their current accepted jobs
+  const acceptedJobsCount = await Job.countDocuments({
+    createdBy: userId,
+    status: "accepted",
+  });
+  if (acceptedJobsCount > 0) {
+    const latestAcceptedJob = await Job.findOne({
+      createdBy: userId,
+      status: "accepted",
+    }).sort("-updatedAt");
+    if (latestAcceptedJob) {
+      await User.findByIdAndUpdate(userId, {
+        hiredDetails: {
+          company: latestAcceptedJob.company,
+          position: latestAcceptedJob.position,
+          dateHired: latestAcceptedJob.updatedAt,
+        },
+        role: "Hired Professional",
+      });
+    }
+  } else {
+    // If no jobs are currently accepted (e.g., they reverted an accepted job to pending)
     await User.findByIdAndUpdate(userId, {
-      hiredDetails: {
-        company: job.company,
-        position: job.position,
-        dateHired: new Date(),
-      },
-      role: "Hired Professional",
+      $unset: { hiredDetails: 1 },
+      role: "User", // Revert to default
     });
   }
 
@@ -93,9 +116,39 @@ const deleteJob = async (req, res) => {
   const job = await Job.findOneAndDelete({ _id: jobId, createdBy: userId });
 
   if (!job) throw new NotFoundError(`No job with id : ${jobId}`);
+
+  // Sync User Profile in case they deleted their only accepted job
+  const acceptedJobsCount = await Job.countDocuments({
+    createdBy: userId,
+    status: "accepted",
+  });
+  if (acceptedJobsCount > 0) {
+    const latestAcceptedJob = await Job.findOne({
+      createdBy: userId,
+      status: "accepted",
+    }).sort("-updatedAt");
+    if (latestAcceptedJob) {
+      await User.findByIdAndUpdate(userId, {
+        hiredDetails: {
+          company: latestAcceptedJob.company,
+          position: latestAcceptedJob.position,
+          dateHired: latestAcceptedJob.updatedAt,
+        },
+        role: "Hired Professional",
+      });
+    }
+  } else {
+    // If no jobs are currently accepted
+    await User.findByIdAndUpdate(userId, {
+      $unset: { hiredDetails: 1 },
+      role: "User",
+    });
+  }
+
   res.status(StatusCodes.OK).json({ msg: "Success! Job removed" });
 };
 
+// SHOW STATS (For your Dashboard)
 // SHOW STATS (For your Dashboard)
 const showStats = async (req, res) => {
   let stats = await Job.aggregate([
@@ -118,7 +171,41 @@ const showStats = async (req, res) => {
     ghosted: stats.ghosted || 0,
   };
 
-  res.status(StatusCodes.OK).json({ defaultStats });
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+  sevenDaysAgo.setHours(0, 0, 0, 0);
+
+  let applicationsByDay = await Job.aggregate([
+    {
+      $match: {
+        createdBy: new mongoose.Types.ObjectId(req.user.userId),
+        appliedAt: { $gte: sevenDaysAgo },
+      },
+    },
+    {
+      $group: {
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$appliedAt" } },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const activityData = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(sevenDaysAgo);
+    d.setDate(d.getDate() + i);
+    const dateStr = d.toISOString().split("T")[0];
+    const match = applicationsByDay.find((x) => x._id === dateStr);
+    activityData.push({
+      name: days[d.getDay()],
+      apps: match ? match.count : 0,
+      date: dateStr,
+    });
+  }
+
+  res.status(StatusCodes.OK).json({ defaultStats, activityData });
 };
 
 module.exports = {

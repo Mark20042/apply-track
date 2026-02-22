@@ -1,17 +1,29 @@
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 const { UnauthenticatedError, BadRequestError } = require("../errors/index");
 const generateTokens = require("../utils/generateToken");
 const { StatusCodes } = require("http-status-codes");
 
 const register = async (req, res) => {
-  const { username, email, password, role } = req.body;
+  const { username, email, password, role, gender, education } = req.body;
 
   const userExist = await User.findOne({ email });
   if (userExist) {
     throw new BadRequestError("User already exists");
   }
 
-  const user = await User.create({ username, email, password, role });
+  // Hash password before saving
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const user = await User.create({
+    username,
+    email,
+    password: hashedPassword,
+    ...(role && { role }),
+    ...(gender !== undefined && gender !== "" && { gender }),
+    ...(education !== undefined && education !== "" && { education }),
+  });
 
   generateTokens(user, res);
 
@@ -33,7 +45,9 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Invalid Credentials");
   }
 
-  if (password !== user.password) {
+  // Compare candidate password with stored hash
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+  if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
 

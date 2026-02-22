@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 
-const MilestoneSchema = new mongoose.Schema({
+const TaskSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, "Please provide milestone title"],
+    required: [true, "Please provide task title"],
     trim: true,
   },
-  isDone: {
+  isCompleted: {
     type: Boolean,
     default: false,
   },
-  date: {
+  dueDate: {
     type: Date,
-  },
+  }
 });
 
 const JobSchema = new mongoose.Schema(
@@ -30,7 +30,16 @@ const JobSchema = new mongoose.Schema(
       trim: true,
     },
 
-    salary: {
+    currency: {
+      type: String,
+      default: "USD",
+      trim: true,
+    },
+    minSalary: {
+      type: Number,
+      default: 0,
+    },
+    maxSalary: {
       type: Number,
       default: 0,
     },
@@ -71,12 +80,15 @@ const JobSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    interviewedAt: {
+      type: Date,
+    },
     jobLocation: {
       type: String,
       default: "Remote",
       trim: true,
     },
-    jobProgress: [MilestoneSchema],
+    tasks: [TaskSchema],
 
     createdBy: {
       type: mongoose.Types.ObjectId,

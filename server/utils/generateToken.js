@@ -6,6 +6,7 @@ const generateTokens = (user, res) => {
       userId: user._id,
       username: user.username,
       role: user.role,
+      isAdmin: user.isAdmin || false,
     },
     process.env.JWT_ACCESS_SECRET,
     {
