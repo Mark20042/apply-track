@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
 
 // Security Packages
 const helmet = require("helmet");
@@ -69,9 +68,6 @@ app.get("/api-docs.json", (req, res) => {
 // rate limiter only applies to /api routes
 app.use("/api", apiLimiter);
 
-if (process.env.NODE_ENV !== "production") {
-  app.use(morgan("tiny"));
-}
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("./public"));
