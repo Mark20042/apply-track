@@ -23,8 +23,20 @@ const adminRouter = require("./routes/adminRoutes");
 
 // MIDDLEWARE
 
-// Set security HTTP headers
-app.use(helmet());
+// Set security HTTP headers (disable CSP for Swagger UI)
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+        imgSrc: ["'self'", "data:", "https://unpkg.com"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  }),
+);
 
 //  Enable CORS (Cross-Origin Resource Sharing)
 const allowedOrigins = [
