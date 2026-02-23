@@ -78,8 +78,7 @@ app.get("/api-docs.json", (req, res) => {
   res.send(swaggerSpec);
 });
 
-// rate limiter only applies to /api routes
-app.use("/api");
+
 
 app.use(express.json());
 app.use(cookieParser());
