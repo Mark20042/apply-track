@@ -39,10 +39,7 @@ app.use(
 );
 
 //  Enable CORS (Cross-Origin Resource Sharing)
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-];
+const allowedOrigins = ["http://localhost:3000", "http://localhost:5173"];
 // Add production frontend URL from env (set CLIENT_URL on Render)
 if (process.env.CLIENT_URL) {
   allowedOrigins.push(process.env.CLIENT_URL);
@@ -57,28 +54,32 @@ app.use(
 // Rate limiting (Prevents brute-force attacks)
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, //  100 requests per windowMs
+  max: 20, //  100 requests per windowMs
   message: "Too many requests from this IP, please try again after 15 minutes",
 });
 
 // Swagger API Docs (mounted before rate limiter so docs are always accessible)
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
-  customSiteTitle: "ApplyTrack API Docs",
-  customCss: '.swagger-ui .topbar { display: none }',
-  swaggerOptions: {
-    persistAuthorization: true,
-    docExpansion: 'list',
-    filter: true,
-    tagsSorter: 'alpha',
-  },
-}));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: "ApplyTrack API Docs",
+    customCss: ".swagger-ui .topbar { display: none }",
+    swaggerOptions: {
+      persistAuthorization: true,
+      docExpansion: "list",
+      filter: true,
+      tagsSorter: "alpha",
+    },
+  }),
+);
 app.get("/api-docs.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(swaggerSpec);
 });
 
 // rate limiter only applies to /api routes
-app.use("/api", apiLimiter);
+app.use("/api");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -98,11 +99,10 @@ app.use((req, res, next) => {
 app.use(mongoSanitize());
 
 // ROUTES
-app.use("/api/auth", authRouter);
+app.use("/api/auth", apiLimiter, authRouter);
 app.use("/api/job", jobRouter);
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
-
 
 app.get("/", (req, res) => {
   res.send(`
